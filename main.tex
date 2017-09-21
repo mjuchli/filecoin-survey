@@ -100,7 +100,7 @@ m.b.juchli@student.tudelft.nl}   %<------ Line breaks in the current column
 \end{abstract}
 
 \begin{IEEEkeywords}
-technical writing, teaching, culture.
+filecoin, decentralized storage network, ico, proof-of-spacetime, crypto-currency.
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
@@ -112,7 +112,7 @@ With this slogan Protocol Labs is about to disrupt the storage market by using \
 The Filecoin project describes a decentralized storage market where anyone, worldwide, is able to participate as a storage provider.
 The concept is indeed promising and convinced the investors such that a total of \$257 million had been raised –-- the biggest initial coin offering (ICO) as of today (September 2017).
 
-Decentralized storage market is not a novel concept.
+However, the idea of a decentralized storage market is not a novel concept.
 Others[Tribler, TorCoin, Mojo Nation] have tried in past too, but yet were not able to scale as much as Filecoin advertises to do, and eventually failed.
 More recent projects [StorJ, Swarm, Sia, MaidSAFE] are currently working towards building a similar system with conceptual differences which will be uncovered briefly in this paper.
 
@@ -122,11 +122,26 @@ We aim to uncover potential weaknesses but also highlight strengths of the propo
 The incorporated \textit{proof-of-spacetime} consensus algorithm is being highlighted and compared with consensus proposals from projects such as StorJ and Sia.
 Eventually, the ICO launch is opposed to the scientific "1975 rule", a model of a pyramid scheme [Pyramid Scheme] and the feasibility is confronted with the "speculative bubble" model [Bubble].
 
-The structure of this paper is as follows:
+The structure of this paper is as follows: Section \ref{sec:documented-failure} lays out a history of decentralized storage projects with a similar ambition as Filecoin, but that have failed over time. 
+The following Section \ref{sec:ico-analysis} is an introduction to the Filecoin project by analyzing the ICO including the reasoning about the applied investor exclusion provision.
+
 
 \section{15 years of documented failure}
+\label{sec:documented-failure}
+
+In July 2000, long before the Blockchain era, the Mojo Nation software \cite{mojo-nation} was released, aiming to serve an "emergent file store" to its users.
+The project successfully deployed a decentralized storage network in an environment consisting of unmanaged nodes.
+It used consistent hashing \cite{consistent-hashing} to locate nodes and data blocks.
+However, the project was shut down in February 2002 due to a number of problems:
+\begin{itemize}
+\item Data Availability: the main issue was the inconsistency of data available to its users as it depended upon which server nodes were connected at the given time.
+According to Maymounkov et al. \cite{peer-to-peer-xor} this could have been avoided by heuristically favoring long-lived nodes and by discriminating newly joined nodes which show a frequent join- and leave behaviour.
+\item Firewalls and NAT: networking hurdles such as firewalls and network address translation (NAT) prevented a substantial amount of nodes to act as a server.
+\item Mutual distrust: in order to have a network of nodes to behave as designed a \textit{motivation to cooperate} needs to be established within the network, combined with sophisticated \textit{attack resistance} mechanism which prevents nodes from using resources of other nodes without offering equal amounts of services in return.
+\end{itemize}
 
 \section{ICO analysis}
+\label{sec:ico-analysis}
 
 \subsection{Investors exclusion}
 
@@ -194,6 +209,12 @@ Considering that Dropbox [dropbox] holds currently around $500$ Petabyte of user
 % Hard-drive: https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/
 
 % Dropbox-userdata: https://blogs.dropbox.com/tech/2016/03/magic-pocket-infrastructure/
+
+\bibitem{consistent-hashing} Karger, David, et al. "Consistent hashing and random trees: Distributed caching protocols for relieving hot spots on the World Wide Web." Proceedings of the twenty-ninth annual ACM symposium on Theory of computing. ACM, 1997.
+
+\bibitem{mojo-nation} Wilcox-O’Hearn, Bryce. "Experiences deploying a large-scale emergent network." Peer-to-Peer Systems (2002): 104-110.
+
+\bibitem{peer-to-peer-xor} Maymounkov, Petar, and David Mazieres. "Kademlia: A peer-to-peer information system based on the xor metric." International Workshop on Peer-to-Peer Systems. Springer, Berlin, Heidelberg, 2002.
 
 \end{thebibliography}
 
