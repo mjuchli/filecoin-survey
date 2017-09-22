@@ -12,6 +12,7 @@
 \documentclass[journal]{IEEEtran}
 \usepackage{blindtext}
 \usepackage{graphicx}
+\graphicspath{ {images/} }
 \usepackage{url}
 
 
@@ -149,7 +150,37 @@ Security issues such as collusion attacks\cite{tribler-hurdles} have slowed down
 \section{ICO analysis}
 \label{sec:ico-analysis}
 
-\subsection{Investors exclusion}
+The Filecoin ICO start on August 10, 2017 and closed the offering on September 7th.
+It was the first ICO ever, complying with SEC securities regulations, such that only accredited investors were allowed to contribute (Reg. D, 506(c), see \cite{regulation-506}).
+Further was the ICO conducted using CoinList\cite{coinlist}, a platform for token sales, built by Protocol Labs too.
+CoinList partners with AngelList\cite{angellist} whose responsibility is on the compliance side regarding the law.
+In total, approximately \$257'000'000 was raised, formed of \$52'000'000 from presale and \$205'800'000 Reg D investments.
+For the latter category, \$135 million was raised within the first hour.
+
+\subsection{Toke sale}
+
+\[ price = max(\$1, \frac{amountRaised}{\$40'000'000}) \]
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{filecoin-tokensale.png}
+\caption{Filecoin sale price}
+\label{fig:sale-price}
+\end{figure}
+
+
+70 miners
+15 prlabs
+10 investors
+5 filecoin foundation
+
+%People who previously made investments in a pre-sale that was run will get a discount, their price will be 75 cents per token.
+
+%If you invest, you will be purchasing a SAFT, which is an instrument that Protocol Labs came up with to legally deliver tokens at a future date. It stands for Simple Agreement for Future Tokens.
+
+\subsection{Questioning investors exclusion}
+
+
 
 \section{Is the design technically feasible?}
 
@@ -207,14 +238,18 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
-\bibitem{mit}Lec 1 | MIT 6.00 Introduction to Computer Science and Programming, Fall 2008, \url{https://www.youtube.com/watch?v=k6U-i4gXkLM}, Aug 19, 2009.
-
 % Bubble: http://www.sciencedirect.com/science/article/pii/016517657990017X
+
+\bibitem{angellist} "AngelList", https://angel.co/, accessed: September 22, 2017.
+
+\bibitem{coinlist} "CoinList", https://coinlist.co/, accessed: September 22, 2017.
+
+\bibitem{regulation-506} "Rule 506 of Regulation D", https://www.sec.gov/fast-answers/answers-rule506htm.html, accessed: September 22, 2017.
 
 \bibitem{tribler} "Tribler Project", https://www.tribler.org/, accessed: September 22, 2017.
 
 \bibitem{tribler-hurdles}
-"Tribler Issue: blockchain-regulated markets", https://github.com/Tribler/tribler/issues/2559#issuecomment-307353664, accessed: September 22, 2017.
+"Tribler Issue: blockchain-regulated markets", https://github.com/Tribler/tribler/issues/2559\#issuecomment-307353664, accessed: September 22, 2017.
 
 \bibitem{storj} Wilkinson, Shawn, et al. "Storj a peer-to-peer cloud storage network." (2014).
 
