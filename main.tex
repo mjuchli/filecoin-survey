@@ -157,26 +157,56 @@ CoinList partners with AngelList\cite{angellist} whose responsibility is on the 
 In total, approximately \$257'000'000 was raised, formed of \$52'000'000 from presale and \$205'800'000 Reg D investments.
 For the latter category, \$135 million was raised within the first hour.
 
-\subsection{Toke sale}
+\subsection{Simple Agreement for Future Tokens}
+The tokens distributed during the ICO were so called Simple Agreement for Future Tokens (SAFT). 
+This instrument allows Coinlist to distribute investors the \textit{right} to receive units of the actual Filecoin tokens (FIL) in the future.
+The definiton of SAFT, however, is also equipped with the following statement:
+\begin{quotation}
+"...a significant portion of the amount raised under the SAFTs will be used to fund the Company’s development of a decentralized storage network that enables entities to earn Filecoin (the “Filecoin Network”)".\cite{saft-agreement}
+\end{quotation}
+Therefore, it is not explicitly mentioned to what extent the development process is being funded, and thus it is left to be decided by Protocol Labs Inc., solely.
+Additionally, SAFT introduces great flexibility to the token intermediary, CoinList, as the agreement not only allows to verify accredited investors but also to specify \textit{events} transparently.
+Transparency is certainly appreciated when funds are being transferred, but it is needless to say that the terms have to be fully understood by both parties.
+One such event, which might be underestimated by the investor, is the \textit{Dissolution Event} and is defined as follows:
+\begin{quotation}
+"Dissolution Event means (i) a voluntary termination of operations of the Company, (ii)
+a general assignment for the benefit of the Company’s creditors or (iii) any other liquidation,
+dissolution or winding up of the Company, whether voluntary or involuntary."\cite{saft-agreement}
+\end{quotation}
+Knowing that it is at any given time possible for Protocal Labs to terminate their business, the entire setup of the ICO becomes fragile when reading the \textit{execution plan}:
+\begin{quotation}
+"If immediately prior to the consummation of the Dissolution Event, the assets of the Company that remain legally available for distribution to the Purchaser and all holders of all other SAFTs (the “Dissolving Purchasers”), as determined in good faith by the Company’s board of directors, are insufficient to permit the payment to the Dissolving Purchasers of their respective Returned Purchase Amounts, then the remaining assets of the Company legally available for distribution will be distributed with equal priority and pro rata among the Dissolving Purchasers..."\cite{saft-agreement}\end{quotation}
+After all, only the \textit{remaining} assets which are legally available will be distributed in the case of a \textit{Dissolution Event}; including definition (i), the voluntary termination.
+Unfortunately, if one considers the worst case scenario in which Protocol Labs decides to terminate the operation, while having spent all the funds available, the investors would likely be excluded from the distribution of any reward.
+Similarly, if the project does not announce a \textit{Network Launch}\cite{saft-agreement} event by July 18, 2022 (including a 60-days extension), then, by definition (i) or (iii), investors would have to expect a \textit{Dissolution Event} to be announced as a subsequent step.
 
+\subsection{Token allocation}
+As presented in \cite{token-sale}, the allocation of the Filecoin token is distributed to 4 groups of participants:
+\begin{itemize}
+\item 70\% to Filecoin Miners as mining block rewards once \textit{Network Launch} is past
+\item 15\% to Protocol labs as genesis allocation with 6-year linear vesting
+\item 10\% to Investors as genesis allocation with 6 months to 3 year linear vesting
+\item 5\% to the Filecoin Foundation as genesis allocation with 6-year linear vesting
+\end{itemize}
+The total of \$257 million US-dollar raised during the advisor pre-sale and investor sale (see \ref{subsec:token-sale}) therefore only accounts up to 10\% of the total coins expecting to be circulating after several years past \textit{Network Launch}.
+Since the half-life time of Filecoin block rewards is set to 6 years, this will likely not change significantly for several years, considering that the \textit{Network Launch} requires a solid implementation of the Filcoin ecosystem.
+
+\subsection{Token sale}
+\label{subsec:token-sale}
+The offering of SAFTs was established in a two-phase process: the first phase allowed Protocol Labs as well as Filecoin advisors to purchase SAFTs prior the broader group of investors. 
+The latter were able to proceed purchases in a second phase.
+In the first phase, the price was fixed at 0.75 USD/FIL.
+For the second phase, a pricing function was introduced:
 \[ price = max(\$1, \frac{amountRaised}{\$40'000'000}) \]
-
+The pricing function increases linearly with the amount being raised, as indictated in Figure \ref{fig:sale-price}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.4\textwidth]{filecoin-tokensale.png}
-\caption{Filecoin sale price}
+\caption{Filecoin sale price function}
 \label{fig:sale-price}
 \end{figure}
-
-
-70 miners
-15 prlabs
-10 investors
-5 filecoin foundation
-
-%People who previously made investments in a pre-sale that was run will get a discount, their price will be 75 cents per token.
-
-%If you invest, you will be purchasing a SAFT, which is an instrument that Protocol Labs came up with to legally deliver tokens at a future date. It stands for Simple Agreement for Future Tokens.
+As a result, the closing price, past \$257'000'000 investments, can be estimated to be approximately \$6.425.
+Hence, advisors and Protocol Labs Inc. itself were able to purchase for a price which is a factor of \$8.57 lower than the late investor.
 
 \subsection{Questioning investors exclusion}
 
@@ -237,6 +267,10 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
+
+\bibitem{token-sale} "Filecoin Token Sale Economics", https://coinlist.co/static/media/Filecoin-Sale-Economics.0ae9a53f.pdf, accessed: September 25, 2017.
+
+\bibitem{saft-agreement} "Simple Agreement for Future Tokens", https://coinlist.co/static/media/Protocol\%20Labs\%20-\%20SAFT\%20for\%20Filecoin\%20Token\%20Presale.6ddb6fb6.pdf, accessed September 25, 2017.
 
 \bibitem{bubble} Blanchard, Olivier Jean. "Speculative bubbles, crashes and rational expectations." Economics letters 3.4 (1979): 387-389. %http://www.sciencedirect.com/science/article/pii/016517657990017X
 
