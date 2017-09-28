@@ -13,6 +13,7 @@
 \usepackage{blindtext}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
+\usepackage{float}
 \usepackage{url}
 
 
@@ -124,7 +125,7 @@ The incorporated \textit{proof-of-spacetime} consensus algorithm is being highli
 Eventually, the ICO launch is opposed to the \textit{scientific 1975 rule}, a model of a pyramid scheme\cite{pyramid-scheme} and the feasibility is confronted with the \textit{speculative bubble model}\cite{bubble}.
 
 The structure of this paper is as follows: Section \ref{sec:documented-failure} lays out a history of decentralized storage projects with a similar ambition as Filecoin, but that have failed over time. 
-The following Section \ref{sec:ico-analysis} is an introduction to the Filecoin project by analyzing the ICO including the reasoning about the applied investor exclusion provision.
+The following Section \ref{sec:ico-analysis} is an introduction to the Filecoin project by analyzing the ICO including the reasoning about the token sale and allocation thereof.
 
 
 \section{15 years of documented failure}
@@ -147,10 +148,32 @@ Tribler\cite{tribler} is based on robust reputation and craft collaboration, an 
 The 12 years of development is a history affected by many hurdles.
 Security issues such as collusion attacks\cite{tribler-hurdles} have slowed down the development progress enormously, preventing the project to scale.
 
+\section{Recent Competitors}
+\label{sec:recent-competitors}
+At the time of writing this paper, an invasion of ICOs has arisen, among some of which are projects that tend to go into a similar direction as Filecoin does.
+Figure \ref{fig:ico-vs-venture} shows that the funds invested in ICOs has overcome the investments made in the venture capital sector.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.45\textwidth]{ico-vs-venture}
+\caption{ICOs vs Venture Capital \cite{ico-vs-venture}}
+\label{fig:ico-vs-venture}
+\end{figure}
+Primary examples of decentralized, incentivized, byzantine fault-tolerant storage networks which shall be competitive with centralized alternatives such as Amazon S3\cite{amazon-s3} are: StorJ\cite{storj}, Sia\cite{sia} and MaidSafe\cite{maidsafe}.
+\begin{itemize}
+\item \textbf{Sia}: supports on-blockchain smart contracts which define payments for hosts while providing storage. 
+Payment is guaranteed once the contract has been created and ensures that the host is being paid in case the the uploader never accesses the file. 
+Additionally, the contract enforces penalties for hosts which go offline or lose data.
+\item \textbf{Storj}: is similar to Sia but does not feature on-blockchain storage contracts but instead offers a pay-as-you-go model for nodes who provide storage. 
+Once the host disappears or goes offline, payments are halted.
+\item \textbf{MaidSAFE} goes beyond decentralized storage with a less sophisticated focus on efficiency.
+MaidSAFE uses a novel scheme for achieving consensus by not relying on a blockchain but instead on close group consensus and hence is not proof-of-work related.
+
+\end{itemize}
+
 \section{ICO analysis}
 \label{sec:ico-analysis}
 
-The Filecoin ICO start on August 10, 2017 and closed the offering on September 7th.
+The Filecoin ICO started on August 10, 2017 and closed the offering on September 7th.
 It was the first ICO ever, complying with SEC securities regulations, such that only accredited investors were allowed to contribute (Reg. D, 506(c), see \cite{regulation-506}).
 Further was the ICO conducted using CoinList\cite{coinlist}, a platform for token sales, built by Protocol Labs too.
 CoinList partners with AngelList\cite{angellist} whose responsibility is on the compliance side regarding the law.
@@ -201,25 +224,67 @@ For the second phase, a pricing function was introduced:
 The pricing function increases linearly with the amount being raised, as indictated in Figure \ref{fig:sale-price}.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.4\textwidth]{filecoin-tokensale.png}
+\includegraphics[width=0.45\textwidth]{filecoin-tokensale.png}
 \caption{Filecoin sale price function}
 \label{fig:sale-price}
 \end{figure}
 As a result, the closing price, past \$257'000'000 investments, can be estimated to be approximately \$6.425.
-Hence, advisors and Protocol Labs Inc. itself were able to purchase for a price which is a factor of \$8.57 lower than the late investor.
+Hence, advisors and Protocol Labs Inc. itself were able to purchase for a price which is a factor of 8.57 lower than the late investor.
 
 \subsection{Questioning investors exclusion}
-
 
 
 \section{Is the design technically feasible?}
 
 In this section, technical details will be highlighted with reasoning whether the decisions stated in the Whitepaper\cite{filecoin} are chosen appropriately or arise potential weaknesses.
-We further aim to make comparisons to more recent decentralized storage projects involving a blockchain, such as StorJ \cite{storj} and Sia \cite{Sia}.
+We further aim to make comparisons to more recent decentralized storage projects involving a blockchain, such as StorJ \cite{storj} and Sia \cite{sia}.
+
+\subsection{Decentralized Storage Network}
+\label{subsec:dsn}
+The notion \textit{Decentralized Storage Network} (DSN) is a scheme with associated protocols that enables to aggregate and provide data in decentralized coordination manners.
+The protocols verify that involved parties execute their operations securely and therefore allows coordination without a trusted party.
+The Filecoin DSN introduces three types of participants: (1) \textit{Clients} who pay FIL tokens to store and retrieve data, (2) \textit{Storage Miners} who pledge FIL tokens as a collateral while providing storage which is worth equal amounts of FIL and are eligible to mine new tokens by doing so, and (3) \textit{Retrieval Miners} who serve data upon client requests, and oftentimes act as Storage Miners too.
+Further does Filecoin personify all the participating parties which run a \textit{full nodes} as \textit{The Network ($N$)}.
+Hence, the protocol scheme is being castellated as a tuple in a very suitable and abstract definition: \texttt{(Put, Get, Manage)}.
+Storing and retrieving data is done by Clients using the Put, or respectively Get, Protocol.
+The Network is being coordinated using the Manage protocol, which serves to control the available storage, audit offered services by Storage Providers and repair possible faults.
+Little is known about the details of \texttt{Manage.AssignOrders} and \texttt{Manage.RepairOrders}, such as, whether the manage protocol follows incentive and rewards nodes for actively maintaining the network.
+However, from what is known, the Filecoin DSN, compared to the competitors described in Section \ref{sec:recent-competitors}, is indeed conceptually splendid.
+The simplicity of \texttt{(Put, Get, Manage)} implicitly covers additional client operations operations such as \texttt{PING} and \texttt{FIND\_NODE}, as defined in StorJ \cite{storj}.
+
+The flow of storing data, initiated by a client, involves the data to be split into \texttt{pieces} in order to be stored within \texttt{sectors} as part of the disk space provided by storage miners.
+Conceptually, the data handling is very similar to StorJ\cite{storj} where data, after it underwent AES256-CTR encryption executed by the client, is split into \textit{shards}.
+While StorJ dynamically adjusts the size of the shards depending on the file to be stored, it is yet not known how Filecoin will approach the splitting into pieces.
+Filecoin, like StorJ, delegates the encryption task to the client.
+However, whereas StorJ enforces encryption in its reference client implementation, Filecoin currently has no plan for offering built-in encryption and leaves this responsibility solely to the client before approaching the Filecoin network.
+In order to introduce redundancy for the to be stored data, Filecoin neatly introduces a \textit{replication factor} to be choosen during the \texttt{Put} protocol which allows to increase the tolerance of storage faults.
+In contrast, StorJ herefore uses a distinctive \textit{mirror} method.
+
+% Partitioning vs erasure codes \cite{sia}
+
+% Sia blockchain: contracts, proofs, and contract updates
+
+\subsection{Ledger}
+The \texttt{Ledger $L$} being used in Filecoin will be represented by a native blockchain, as announced in \cite{filecoin-investor-faq}, and supports various types of data structures.
+The state of the DSN is stored within an \texttt{AllocTable}, which keeps track of \texttt{pieces} and their assigned \texttt{sectors}.
+The \texttt{Orderbook} is responsible for storing \texttt{Orders} which either state a request to store data (\texttt{Bid order}), offer a service (\texttt{Ask order}) or confirm a match of bid- and ask orders in form of a \texttt{Deal order}.
+Lastly, a \texttt{Pledge} engraved in the ledger represents the collateral of the storage miner in order to accept orders from the clients, as described in \ref{subsec:dsn}.
+In contrast, Sia only stores storage contracts which define the terms of the formed agreement between parties and therefore relies on a variant of the Bitcoin protocol\cite{bitcoin}.
+As Filecoin is clearly more diverse in terms of data structures additional complexity in the clients is to be expected.
+From another perspective, this decision might allow to extend the protocol more easily as the ledger is already lied out to handle various types of data structures.
+Having a native blockchain further was a necessary decision in order to employ Proof-of-Spacetime, see \ref{subsec:pos}.
+However, by not relying on the Ethereum Network \cite{ethereum} as previously planned and announced at DEVCON2 \cite{devcon2}, and its absence of an ERC20 token \cite{erc20} hence prevents direct compatibility to Ethereum and therefore requires a bridge of some sort.
+
+
+\subsection{Fault tolerance}
+
+\subsection{Properties}
 
 \subsection{Proof-of-spacetime}
+\label{subsec:pos}
 
-% use mindmap
+\subsection{Decentralized Markets}
+The Filecoin DNS further introduces two types of markets, \textit{Storage Market} and \textit{Retrieval Market}, both being represented as decentralized exchanges with the goal to offers from Clients and Miners and eventually initiate deals. \cite{filecoin}
 
 \section{Is the design economically feasible?}
 
@@ -268,6 +333,18 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
+\bibitem{amazon-s3} "Amazon S3", https://aws.amazon.com/s3/, accessed: September 28, 2017.
+
+\bibitem{ico-vs-venture} "ICOs vs Venture Capital", http://fingfx.thomsonreuters.com/gfx/rngs/USA-VENTURECAPITAL-DIGITALCURRENCY/0100502J05M/index.html, accessed: September 28, 2017.
+
+\bibitem{erc20} "ERC-20 token standard", https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md, accessed: September 28, 2017.
+
+\bibitem{ethereum} Wood, Gavin. "Ethereum: A secure decentralised generalised transaction ledger." Ethereum Project Yellow Paper 151 (2014).
+
+\bibitem{devcon2} "DEVCON2", https://ethereumfoundation.org/devcon2/, accessed: September 28, 2017.
+
+\bibitem{bitcoin} Nakamoto, Satoshi. "Bitcoin: A peer-to-peer electronic cash system." (2008): 28.
+
 \bibitem{token-sale} "Filecoin Token Sale Economics", https://coinlist.co/static/media/Filecoin-Sale-Economics.0ae9a53f.pdf, accessed: September 25, 2017.
 
 \bibitem{saft-agreement} "Simple Agreement for Future Tokens", https://coinlist.co/static/media/Protocol\%20Labs\%20-\%20SAFT\%20for\%20Filecoin\%20Token\%20Presale.6ddb6fb6.pdf, accessed September 25, 2017.
@@ -289,10 +366,14 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 
 \bibitem{storj} Wilkinson, Shawn, et al. "Storj a peer-to-peer cloud storage network." (2014).
 
+\bibitem{maidsafe} "MaidSafe.net announces project SAFE to the community", https://github.com/maidsafe/Whitepapers/blob/master/Project-Safe.md, accessed: September 22, 2017.
+
 \bibitem{filecoin} “FileCoin
 whitepaper,” https://filecoin.io/filecoin.pdf, accessed: September 20, 2017.
 
 \bibitem{filecoin-io} "FileCoin Website", https://filecoin.io/, accessed: September 20, 2017.
+
+\bibitem{filecoin-investor-faq} "Filecoin INvestor FAQ", https://ipfs.io/ipfs/QmWdXyhqHJWJut5wt\\4gSCueTjSnFyDHBy3SRfmcqArtz1a/2017-08-08-Filecoin-Investor-FAQ.html, accessed: September 28, 2017.
 
 \bibitem{sia} Vorick, David, and Luke Champine. "Sia: Simple Decentralized Storage." (2014).
 
