@@ -174,7 +174,7 @@ MaidSAFE uses a novel scheme for achieving consensus by not relying on a blockch
 \label{sec:ico-analysis}
 
 The Filecoin ICO started on August 10, 2017 and closed the offering on September 7th.
-It was the first ICO ever, complying with SEC securities regulations, such that only accredited investors were allowed to contribute (Reg. D, 506(c), see \cite{regulation-506}).
+It was the first ICO ever which complied with SEC securities regulations and hence only accredited investors were allowed to contribute (Reg. D, 506(c), see \cite{regulation-506}).
 Further was the ICO conducted using CoinList\cite{coinlist}, a platform for token sales, built by Protocol Labs too.
 CoinList partners with AngelList\cite{angellist} whose responsibility is on the compliance side regarding the law.
 In total, approximately \$257'000'000 was raised, formed of \$52'000'000 from presale and \$205'800'000 Reg D investments.
@@ -260,9 +260,21 @@ However, whereas StorJ enforces encryption in its reference client implementatio
 In order to introduce redundancy for the to be stored data, Filecoin neatly introduces a \textit{replication factor} to be choosen during the \texttt{Put} protocol which allows to increase the tolerance of storage faults.
 In contrast, StorJ herefore uses a distinctive \textit{mirror} method.
 
-% Partitioning vs erasure codes \cite{sia}
+The guarantees and requirements laid out by the Filecoin DSN can be summarized as follows:
+\begin{itemize}
+\item \textit{Integrity:} In order to ensure that clients do not accept altered or falsified data, cryptographic hashes are used as a naming convention and serve as identifier for data retrieval (\texttt{Get} protocol) and verification of its content.
+Filecoin does not rely on any meta data, such as its competitor StorJ\cite{storj}, but relies on the hash only.
+\item \textit{Retrievability:} after the data is successfully stored, clients are ensured that the very same data can eventually be retrieved.
+The $(f, m)-tolerant$ system specifies that given $m$ storage miners, a maximum of $f$ faults are tolerated.
+Increasing the replication factor hence implicitly increases the chances of recovery.
+\item \textit{Public Verifiability and Auditability:} as storage miners are obligated to submit proofs of storage (see \ref{subsec:pos} to the blockchain, any user can verify their validity without having access to the data.
+Since \textit{proof-of-spacetime:} implicitly guarantees the continuous existence of the data on the storage miner side, no challenge-response communication is required.
+Compared to StorJ\cite{storj}, the communication overhead is therefore reduced while providing the same guarantees.
+\item \textit{Incentive compatibility:} like any of the projects mentioned in \ref{sec:recent-competitors}, Filecoin enforces incentive by rewarding parties which store data and punishing those who loose data.
+\item \textit{Confidentiality:} as mentioned earlier in this Section, Filecoin is weaker in terms of confidentiality as it fully delegates the encryption task to the client.
+\end{itemize}
 
-% Sia blockchain: contracts, proofs, and contract updates
+% Partitioning vs erasure codes \cite{sia}
 
 \subsection{Ledger}
 The \texttt{Ledger $L$} being used in Filecoin will be represented by a native blockchain, as announced in \cite{filecoin-investor-faq}, and supports various types of data structures.
@@ -277,8 +289,6 @@ However, by not relying on the Ethereum Network \cite{ethereum} as previously pl
 
 
 \subsection{Fault tolerance}
-
-\subsection{Properties}
 
 \subsection{Proof-of-spacetime}
 \label{subsec:pos}
