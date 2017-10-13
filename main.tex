@@ -260,7 +260,7 @@ However, by not relying on the Ethereum Network \cite{ethereum} as previously pl
 The Filecoin DNS further introduces two types of markets, \textit{Storage Market} and \textit{Retrieval Market}, both being represented as decentralized exchanges with the goal to offers from Clients and Miners and eventually initiate deals. \cite{filecoin}
 
 \section{IPFS}
-As described in \cite{filecoin}, Filecoin serves as an incentivized seeding layer on top of the InterPlanetary File System (IPFS)\cite{ipfs}.
+As described in \cite{filecoin}, Filecoin serves as an incentivized seeding layer on top of the InterPlanetary File System (IPFS)\cite{ipfs-whitepaper}.
 The Filecoin project is therefore beneficial to IPFS as it intends to add more storage to the network. At the same time, is strongly depending on the technical capabilities and robustness of IPFS.
 This sections aims to highlight the capabilities of IPFS and explains the conceptual decisions made while building a peer-to-peer hypermedia protocol.
 The latter involves a brief overview of the libp2p project\cite{libp2p}, a modular peer-to-peer networking stack.
@@ -278,6 +278,7 @@ As a result, what used to be a decentralized web is now moving towards a more an
 %TODO: figure centralized vs decentralized vs distributed
 
 \subsection{Distributed file system}
+\label{subsec:ipfs-dfs}
 According to the readme\cite{ipfs-github}: "IPFS is a distributed file system that seeks to connect all computing devices with the same system of files."
 In practice, IPFS is a peer-to-peer distributed system that connects all networks using the same system of files. 
 The files are version controlled and represented with their hash and as opposed to HTTP, where content is being searched by location, IPFS searches by content.
@@ -293,24 +294,35 @@ Further more, IPFS does not rely on IP only but instead uses the multiaddr\cite{
 
 \textit{Routing} is required for nodes to find other peers which can serve objects.
 A \textit{distributed sloppy hash table (DSHT)}\cite{dsht} serves those purposes and is based on S/Kademlia\cite{kademlia} and Coral\cite{coral}. 
-Again, IPFS remains true to its flexible and modular structure and thus allows to change the implementation of \texttt{IPFSRouting} interface, allowing, for example, in a local environment to use a regular hash table.
+Again, IPFS remains true to its flexible and modular structure and thus allows to change the implementation of \texttt{IPFSRouting} interface, allowing, for example, in a local environment to use a regular hash table. \cite{ipfs-whitepaper}
 
+Proceeding a \textit{block exchange} for distributing data in IPFS is implemented with BitSwap\cite{bitswap}, a protocol inspired by BitTorrent\cite{bittorrent}.
+BitSwap is incentivized as it uses a credit system where peers track their balance with other nodes and sending blocks to debtor peers is implemented with probabilistic approach.
+Hereby, an additional timeout is being applied in case a sender does not come after its duties, which prevents gaming the probabilities.
+Whereas BitTorrent uses tit-for-tat strategy, BitSwamp relies on a debt ratio factor: \[r=\frac{bytes\_sent}{bytes\_received+1}\]
+A probabilistic function further describes the likelihood of a peer sending data as follows:
+\[P(send|r)= 1-\frac{1}{1 + exp(6-3r)}\]
+The function implies that once the debt ratio of a peer surpasses twice the amount of its credit, the likelihood of sending and hence its trustworthiness drops radically.
+As a result, this BitSwamp implements a measure of trust using the debt ratio factor and therefore provides resistance against Sybil attacks and values successful relationships among peers yet with the tolerance of temporary unavailability. \cite{ipfs-whitepaper}
 
-%There is no trust between nodes, and there is no single point of failure.
-%forms a generalized Merkle-DAG, a directed acyclic graph whose objects are linked to each other (usually just by their cryptographic hash
-%The fundamental principle of IPFS is that all data is part of the same Merkle DAG, a content-addressed block storage model with content-addressed hyperlinks. It doesn’t matter where your information is located. As long as the address structure is standardized, this information could be accessible from any platform, database or system.
+In order to effectivly store and distribute blocks in quick and robust manners, IPFS introduces the \textit{Merkle DAG}.
+The directed acyclic graph is built-up with cryptographic \texttt{links} of the underlying objects.
+The \texttt{object} is a data structure consisting of a \texttt{name}, \texttt{multihash} and \texttt{size}, allowing any type of data to be represented with.
+The Merkle DAG, described as "a generalization of the Git data structure"\cite{ipfs-whitepaper}, hence provides properties including: Content Addressing (content is uniquely identified by its multihash checksum), Tamper resistance (content is verified with its checksum) and Deduplication (objects with exact same content are equal and are stored only once). \cite{ipfs-whitepaper}
+Allowing to traverse the Merkle DAG is being enabled with UNIX-like paths describing the multi-hashes of the object:\\
+\texttt{/ipfs/<hash-of-object>/<name-path-to-object>}
+That is, IPFS makes an attempt to reuse long established file system properties while handling data with a fundamentally different concept than what was known so far.
 
+At last and in order to make IPFS a fully useful file system, IPFS introduces IPNS\cite{ipns}, the InterPlanetary Naming System.
+The goal is to maintain the Merkle DAG containing immutable content-addressed objects, and apply \textit{Naming} by using mutable pointers to the Merkle DAG.
+Thus, enabling user friendly naming. \cite{ipfs-whitepaper}
 
 \subsection{Libp2p}
-
-\subsection{Weaknesses}
-
-ipfs scaling
-
-ipfs security
+...
 
 \subsection{Filecoin integration}
-filecoin -- ipfs combination?
+In \ref{subsec:ipfs-dfs} BitSwap was introduced.
+...
 
 
 \section{Is the design economically feasible?}
@@ -362,6 +374,14 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
+
+\bibitem{ipns} "The Inter-Planetary Naming System", https://github.com/ipfs/examples/tree/master/examples/ipns, accessed: October 13, 2017.
+
+\bibitem{ipfs-whitepaper} "IPFS - Content Addressed, Versioned, P2P File System", https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf, accessed: October 13, 2017.
+
+\bibitem{bitswap} "Bitswap", https://github.com/ipfs/go-ipfs/tree/master/exchange/bitswap, accessed: October 13, 2017.
+
+\bibitem{bittorrent} Cohen, Bram. "Incentives build robustness in BitTorrent." Workshop on Economics of Peer-to-Peer systems. Vol. 6. 2003.
 
 \bibitem{kademlia} Baumgart, Ingmar, and Sebastian Mies. "S/kademlia: A practicable approach towards secure key-based routing." Parallel and Distributed Systems, 2007 International Conference on. IEEE, 2007.
 
