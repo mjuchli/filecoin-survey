@@ -318,7 +318,35 @@ The goal is to maintain the Merkle DAG containing immutable content-addressed ob
 Thus, enabling user friendly naming. \cite{ipfs-whitepaper}
 
 \subsection{Libp2p}
-...
+The development of IPFS has been a demanding challenge in understanding the internet network stack. \cite{libp2p-github}
+As a result, the \texttt{libp2p} library was created in order to bundle protocols used for building large scale peer-to-peer applications.
+Thus, libp2p can be regarded as an entire network stack, represented by a protocol suite.
+Conceptually, libp2p is structured according to Figure \ref{fig:libp2p-stack}.
+\ref{fig:sale-price}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.45\textwidth]{libp2p-short.png}
+\caption{Libp2p network stack}
+\label{fig:libp2p-stack}
+\end{figure}
+
+The interfaces can be described as follows:
+\begin{itemize}
+\item \textbf{Peer Routing:} Identifies the peers to which a message should be routed to.
+The implementations include \textit{kad-routing}, a kademlia routing table where each peer holds a set of k-buckets; and mDNS-routing which identifies local area network peers.
+\item \textbf{Swarm:} handles everything related to the opening of a stream.
+A \textit{stream muxer} multiplexes connections per peer and streams per connection.
+The \textit{protocol muxer} enables multiplexing of transport protocols on applications level.
+This allows several protocols to be muxed in the same socket and therefore only one NAT traversal would be required, if any.
+Further more, \textit{Relay} provides an end-to-end encrypted connection where a node asks another node to connect on its behalf and thus can overcome NAT traversal.
+\item \textbf{Distributed Record Store:} The aim is to store and distribute records, that is, similar to DNS as it is used for signaling links, announcing peers and content.
+The record store was further modularized under the name: IPRS, InterPlanetary Record Store \cite{iprs}.
+The interface provides record stores for abstract records, kademila routing records as well as mDNS routing records. 
+Having such a record keeping system allows content to be verified by any user of the record store.
+\item \textbf{Discovery:} in order for peers to find and identify each other in the network, libp2p provides several ways to do so.
+LAN discovery is being implemented with \textit{mDNS}, \textit{Random Walk} using a DHT (distributed hash table) discovery by proceeding random queries enables discovery of peers outside the LAN, and finally a \textit{Bootstrap-list} enables peers to store highly stable (and possibly trusted) peers locally.
+
+\end{itemize}
 
 \subsection{Filecoin integration}
 In \ref{subsec:ipfs-dfs} BitSwap was introduced.
@@ -374,6 +402,8 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
+
+\bibitem{iprs} "InterPlanetary Record Store", https://github.com/libp2p/interface-record-store, accessed: October 17, 2017.
 
 \bibitem{ipns} "The Inter-Planetary Naming System", https://github.com/ipfs/examples/tree/master/examples/ipns, accessed: October 13, 2017.
 
