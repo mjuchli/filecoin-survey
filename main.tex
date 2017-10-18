@@ -240,6 +240,7 @@ Compared to StorJ\cite{storj}, the communication overhead is therefore reduced w
 % Partitioning vs erasure codes \cite{sia}
 
 \subsection{Ledger}
+\label{subsec:ledger}
 The \texttt{Ledger $L$} being used in Filecoin will be represented by a native blockchain, as announced in \cite{filecoin-investor-faq}, and supports various types of data structures.
 The state of the DSN is stored within an \texttt{AllocTable}, which keeps track of \texttt{pieces} and their assigned \texttt{sectors}.
 The \texttt{Orderbook} is responsible for storing \texttt{Orders} which either state a request to store data (\texttt{Bid order}), offer a service (\texttt{Ask order}) or confirm a match of bid- and ask orders in form of a \texttt{Deal order}.
@@ -257,6 +258,7 @@ However, by not relying on the Ethereum Network \cite{ethereum} as previously pl
 \label{subsec:pos}
 
 \subsection{Decentralized Markets}
+\label{subsec:markets}
 The Filecoin DNS further introduces two types of markets, \textit{Storage Market} and \textit{Retrieval Market}, both being represented as decentralized exchanges with the goal to offers from Clients and Miners and eventually initiate deals. \cite{filecoin}
 
 \section{IPFS}
@@ -349,10 +351,22 @@ LAN discovery is being implemented with \textit{mDNS}, \textit{Random Walk} usin
 \end{itemize}
 
 \subsection{Filecoin integration}
-In \ref{subsec:ipfs-dfs} BitSwap was introduced.
-...
+As for now it is not known how Filecoin plans to adapt IPFS as its underlying data store.
+The previous Section \ref{subsec:ipfs-dfs} introduced the components of IPFS briefly and provides the basic knowledge to reason about how Filecoin would be able to take advantage of the IFPS ecosystem.
+We presume that the most obvious component to hook in is Bitswap (see Section \ref{subsec:ipfs-dfs}).
+Bitswap manages requests from peers in the network and therefore is considered as the "data trading module" of IPFS \cite{bitswap}.
+Essentially, Bitswap acquires blocks requested by the client and initiates a send to the peers who demand these blocks.
+We believe that in the case of Filecoin, the native measure of trust of Bitswap, provided by the debt ratio factor, has to change.
+Instead of relying on the bytes being sent and received, Filecoin provides a measure of trust by relying on FIL token exchange and the guarantees provided by proof-of-spacetime (see Section \ref{subsec:pos}).
+Regarding the distribution of the blocks among peers, Bitswap would react on \texttt{DEAL} orders (see Section \ref{subsec:ledger}).
+Depending on whether the order evolved form the storage- or retrieval market, blocks would be sent to the node on either ask- or bid side.
+As a result, Bitswap serves as the API used by the decentralized markets (see Section \ref{subsec:markets}) and handles data exchange according to Filecoins incentive.
 
-
+\subsection{Potential weaknesses}
+%BitSwap uses a credit system in order to incentivise peers.
+%One potential weakness of this approach is the fact that logic is embedded within every node and therefore the implementation could be changed in order to outplay other peers.
+%In Filecoin, however, this weakness does not apply as the decentralised markets enforce incentive to the peers and hence a node not playing according to the rules will loose no matter what.
+ 
 \section{Is the design economically feasible?}
 \label{sec:eco-feasibility}
 
