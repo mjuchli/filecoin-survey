@@ -251,15 +251,75 @@ From another perspective, this decision might allow to extend the protocol more 
 Having a native blockchain further was a necessary decision in order to employ Proof-of-Spacetime, see \ref{subsec:pos}.
 However, by not relying on the Ethereum Network \cite{ethereum} as previously planned and announced at DEVCON2 \cite{devcon2}, and its absence of an ERC20 token \cite{erc20} hence prevents direct compatibility to Ethereum and therefore requires a bridge of some sort.
 
+%\subsection{Fault tolerance}
 
-\subsection{Fault tolerance}
-
-\subsection{Proof-of-spacetime}
+\subsection{Proof-of-Spacetime}
 \label{subsec:pos}
+The white-paper\cite{filecoin} describes a novel consensus protocol: \textit{Proof-of-Spacetime} (PoSt).
+With Proof-of-Spacetime it becomes possible to check if a prover is storing data for a range of time, or formally:
+\begin{quotation}
+"A \texttt{PoSt} scheme enables an efficient prover \texttt{P} to convince a verifier \texttt{V} that \texttt{P} is storing data \texttt{D} for some time \texttt{t}."\cite{filecoin}
+\end{quotation}
+It takes advantage of the capabilities of \textit{Proof-of-Storage}\cite{proof-storage}, which can confirm if a storage provider is storing data at the time of the challenge, by sequentially generating such proofs and recursively compose the executions thereof.
+The concrete implementation of Proof-of-Storage is described as \textit{Proof-of-Replication} (PoRep), a novel concept that lets a storage miner to convince a client that its data has been replicated to a uniquely dedicated physical storage.
+Other Proof-of-Storage schemes such as Provable Data Possession (PDP)\cite{proof-possession} and Proof-of-Retrievability (PoR)\cite{proof-retrievability} essentially guarantee possession of some data at the time of the challenge/response.
+Proof-of-Replication, however, improves those schemes by preventing \textit{Sybil Attacks, Outsourcing Attacks}, and \textit{Generation Attacks}.
+As Proof-of-Spacetime is based on Proof-of-Replication, these properties are inherited.
+Thus, PoSt prevents pretentious copies which are not physically stored (\textit{Sybil Attack}).
+It further denies storage miners to offer more storage than physically available (\textit{Outsourcing Attack}) and also protects from on-demand data generation while this should effectively be stored on a physical disk (\textit{Generation Attack}).
+The cryptographic building blocks of PoRep and PoSt rely on zero-knowledge Succinct Non-interactive Arguments of Knowledge (zk-SNARKs).
+Zero knowledge proof, including zk-SNARKs have shown to have great potential allowed to build large scale projects such as ZeroCash\cite{zcash}. 
+\\
+\\
+Apart from the extensive capabilities in terms of storing data, Proof-of-Spacetime attempts to reduce resource waste, by considering that storing users data is a form of work.
+It is therefore a consensus protocol based on \textit{useful work}.
+The usefulness implies that computational power is not wasted--- as this is the case for \textit{Proof-of-Work}\cite{bitcoin} and other consensus algorithms.
+In Filecoin, the voting power (the probability of a miner being elected to create a new block) increases proportionally with the storage offered to the network in relation to the storage resources of the entire network.
+Due to the fact that Proof-of-Spacetime composes  Proof-of-Replication executions sequentially, it is further considered as non-parallelizable and thus greater computational resources will not have any noticeable effect. \cite{filecoin}
+
+However, given that storage miners may offer varying amounts of storage results, their influence on the network is being distributed continuously and unequally.
+Hence, a naive Byzantine Fault Tolerance approach that uses the number of faulty nodes is in the case of Filecoin not a sufficient measure for determining the outcome of a protocol.
+Instead, Filecoin proposes \textit{Power Fault Tolerance} (PFT)\cite{filecoin-pft}, an abstraction that defines byzantine faults in terms of the \textit{influence} of a participant.
+
 
 \subsection{Decentralized Markets}
 \label{subsec:markets}
-The Filecoin DNS further introduces two types of markets, \textit{Storage Market} and \textit{Retrieval Market}, both being represented as decentralized exchanges with the goal to offers from Clients and Miners and eventually initiate deals. \cite{filecoin}
+Filecoin introduces two types of markets, \textit{Storage Market} and \textit{Retrieval Market}, represented by two independent, decentralized exchanges.
+The notion \textit{Verifiable Markets} is presented and describes a market where participants are able to verify the exchange between buyers and sellers.
+Specifically, the protocol describes a two-phase process: \textit{Order matching} allows participants to add buy and sell orders to the orderbook and eventually allows to create deal orders once the two opposite (buy and sell) orders have matched.
+The second phase, described as \textit{Settlement}, involves the network to ensure the correct execution of the transfer of goods (data) and eventually initializes a payment.
+The \textit{Verifiable Market Protocol} applies to both of the aforementioned markets.\cite{filecoin}
+\\
+\\
+The main purpose of the Storage Market is for clients to request storage and for storage miners to offer their resources. 
+Bid- and ask orders from those parties will be placed into an orderbook and are therefore publicly available to any participant of the network.
+Filecoin states that "every honest user has the same view of the orderbook".
+That is, the orderbook is a data-structure incorporated in the blockchain.
+Hence, orders are added to the blockchain if they are valid.
+As the Storage Market is a \textit{verifiable market}, orders of type \textit{bid, ask} and \textit{deal} can be validated by every participant.
+\\
+\indent
+The only security related parameter required in the order matching phase is a field (\texttt{ts}) which describes the duration of how long a \textit{deal order} is valid.
+This prevents a client from holding back data once the storage miner has committed its resources.
+The settlement phase further involves the storage miner to seal their sectors and submit the generated proofs of storage to the blockchain.\cite{filecoin}
+\\
+\\
+The retrieval markets sole purpose is for retrieval miners to provide data to the clients upon their requests.
+One very challenging requirement for this market is the \textit{fast} retrieval of data.
+Therefore, and unlike the storage market, the retrieval market maintains an off-chain orderbook that allows clients and retrieval miners to find each other.
+The absence of a blockchain acting as a trusted party introduces the need for other ways of forming trust between client and retrieval miners.
+Filecoin essentially relies on token exchange as trust instrument.
+The to be delivered data is being split in multiple pieces and for every successful exchange of a piece the client pays the miner.
+If one of the involved parties does not come after its duties, the other party is free to stop.
+\\
+\indent In order to process payments in the first place a network of payment channels is required.
+Filecoin has not stated more detailed plans of how to integrate payment channels into the retrieval market. 
+Although this being a risk, much research has been done and promising projects have evolved \cite{lightning}.
+\\
+\indent The order matching phase of the verifiable market protocol differs much, compared to the storage market.
+Since the orderbook cannot be recorded in a blockchain, clients and retrieval miners have to \textit{gossip} their orders.
+Filecoin assumes that this point that there is always at least one honest retrieval miner.
+\cite{filecoin}
 
 \section{IPFS}
 As described in \cite{filecoin}, Filecoin serves as an incentivized seeding layer on top of the InterPlanetary File System (IPFS)\cite{ipfs-whitepaper}.
@@ -513,6 +573,18 @@ whitepaper,” https://filecoin.io/filecoin.pdf, accessed: September 20, 2017.
 \bibitem{mojo-nation} Wilcox-O’Hearn, Bryce. "Experiences deploying a large-scale emergent network." Peer-to-Peer Systems (2002): 104-110.
 
 \bibitem{peer-to-peer-xor} Maymounkov, Petar, and David Mazieres. "Kademlia: A peer-to-peer information system based on the xor metric." International Workshop on Peer-to-Peer Systems. Springer, Berlin, Heidelberg, 2002.
+
+\bibitem{lightning} Poon, Joseph, and Thaddeus Dryja. "The bitcoin lightning network: Scalable off-chain instant payments." Technical Report (draft) (2015).
+
+\bibitem{proof-storage} Kamara, Seny, and Kristin E. Lauter. "Cryptographic Cloud Storage." Financial Cryptography Workshops. Vol. 6054. 2010.
+
+\bibitem{proof-possession} Ateniese, Giuseppe, et al. "Provable data possession at untrusted stores." Proceedings of the 14th ACM conference on Computer and communications security. Acm, 2007.
+
+\bibitem{proof-retrievability} Shacham, Hovav, and Brent Waters. "Compact proofs of retrievability." Asiacrypt. Vol. 5350. 2008.
+
+\bibitem{zcash} Sasson, Eli Ben, et al. "Zerocash: Decentralized anonymous payments from bitcoin." Security and Privacy (SP), 2014 IEEE Symposium on. IEEE, 2014.
+
+\bibitem{filecoin-pft} "Power Fault Tolerance", https://filecoin.io/power-fault-tolerance.pdf, accessed: October 31, 2017.
 
 \end{thebibliography}
 
