@@ -22,7 +22,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Is filecoin a \$257 Million bubble or a pyramid scheme?}
+\title{Is Filecoin a \$257 million Ponzi scheme?}
 %
 %
 % author names and IEEE memberships
@@ -58,7 +58,7 @@ j.a.pouwelse@tudelft.nl}
 \begin{abstract}
 %\boldmath
 
-...
+%Filecoin's ICO, which began on August 10, 2017, raised \$257 million, driven by investors who 
 
 \end{abstract}
 
@@ -74,7 +74,6 @@ filecoin, decentralized storage network, ico, proof-of-spacetime, crypto-currenc
 With this slogan Protocol Labs is about to disrupt the storage market by using \textit{proof-of-spacetime} as their driving source.
 The Filecoin project describes a decentralized storage market where anyone, worldwide, is able to participate as a storage provider.
 The concept is indeed promising and convinced the investors such that a total of \$257 million had been raised –-- the biggest initial coin offering (ICO) as of today (September 2017).
-
 However, the idea of a decentralized storage market is not a novel concept.
 Others\cite{tribler}\cite{mojo-nation} have tried in past too, but yet were not able to scale as much as Filecoin advertises to do, and eventually failed.
 More recent projects\cite{storj}\cite{sia} are currently working towards building a similar system with conceptual differences which will be uncovered briefly in this paper.
@@ -83,12 +82,14 @@ This paper aims to analyze the ICO launch of Filecoin and reasons about the exce
 Further, the feasibility in terms of technical as well as economical design is studied.
 We aim to uncover potential weaknesses but also highlight strengths of the proposed white-paper \cite{filecoin}.
 The novel \textit{proof-of-spacetime} consensus algorithm is being highlighted and compared with consensus proposals from projects such as StorJ and Sia.
-Eventually, the ICO launch is opposed to the \textit{scientific 1975 rule}, a model for pyramid schemes\cite{pyramid-scheme}, and the feasibility is confronted with the \textit{speculative bubble model}\cite{bubble}.
+Eventually, we reason about whether the ICO launch might possibly be a ponzi scheme.
 
 The structure of this paper is as follows: Section \ref{sec:documented-failure} lays out a history of decentralized storage projects with a similar ambition as Filecoin, but that have failed over time. 
 Section \ref{sec:recent-competitors} mentions recent competitor projects that make use of a blockchain.
 The following Section \ref{sec:ico-analysis} is an introduction to the Filecoin project by analyzing the ICO including the reasoning about the token sale and allocation thereof.
-Section \ref{sec:tech-feasibility} reasons whether the promises of the Filecoin project are technically feasible, whereas Section \ref{sec:eco-feasibility} questions its economical feasibility.
+Section \ref{sec:tech-feasibility} reasons whether the promises of the Filecoin project are technically feasible.
+By doing so, we analyze the InterPlanetary File System (IPFS)\cite{ipfs-whitepaper} in Section \ref{sec:ipfs} and highlight possible ways of its adoption in Filecoin.
+In Section \ref{sec:eco-feasibility} we question the economical feasibility in rudumentary manners and lastly conclude about the entire Filecoin project in Section \ref{sec:conclusion}.
 
 
 \section{15 years of documented failure}
@@ -99,10 +100,10 @@ The project successfully deployed a decentralized storage network in an environm
 It used consistent hashing \cite{consistent-hashing} to locate nodes and data blocks.
 However, the project was shut down in February 2002 due to a number of problems:
 \begin{itemize}
-\item Data Availability: the main issue was the inconsistency of data available to its users as it depended upon which server nodes were connected at the given time.
+\item \textbf{Data Availability:} the main issue was the inconsistency of data available to its users as it depended upon which server nodes were connected at the given time.
 According to Maymounkov et al.\cite{peer-to-peer-xor} this could have been avoided by heuristically favoring long-lived nodes and by discriminating newly joined nodes which show a frequent join- and leave behaviour.
-\item Firewalls and NAT: networking hurdles such as firewalls and network address translation (NAT) prevented a substantial amount of nodes to act as servers.
-\item Mutual distrust: in order to have a network of nodes to behave as designed a \textit{motivation to cooperate} needs to be established within the network, combined with sophisticated \textit{attack resistance} mechanism which prevents nodes from using resources of other nodes without offering equal amounts of services in return.
+\item \textbf{Firewalls and NAT}: networking hurdles such as firewalls and network address translation (NAT) prevented a substantial amount of nodes to act as servers.
+\item \textbf{Mutual distrust:} in order to have a network of nodes to behave as designed a \textit{motivation to cooperate} needs to be established within the network, combined with sophisticated \textit{attack resistance} mechanism which prevents nodes from using resources of other nodes without offering equal amounts of services in return.
 \end{itemize}
 \hfill
 \\
@@ -144,6 +145,7 @@ In total, approximately \$257'000'000 was raised, formed of \$52'000'000 from pr
 For the latter category, \$135 million was raised within the first hour.
 
 \subsection{Simple Agreement for Future Tokens}
+\label{subsec:saft}
 The tokens distributed during the ICO were so called Simple Agreement for Future Tokens (SAFT). 
 This instrument allows Coinlist to distribute investors the \textit{right} to receive units of the actual Filecoin tokens (FIL) in the future.
 The definiton of SAFT, however, is also equipped with the following statement:
@@ -167,6 +169,7 @@ Unfortunately, if one considers the worst case scenario in which Protocol Labs d
 Similarly, if the project does not announce a \textit{Network Launch}\cite{saft-agreement} event by July 18, 2022 (including a 60-days extension), then, by definition (i) or (iii), investors would have to expect a \textit{Dissolution Event} to be announced as a subsequent step.
 
 \subsection{Token allocation}
+\label{subsec:token-allocation}
 As presented in \cite{token-sale}, the allocation of the Filecoin token is distributed to 4 groups of participants:
 \begin{itemize}
 \item 70\% to Filecoin Miners as mining block rewards once \textit{Network Launch} is past
@@ -193,9 +196,6 @@ The pricing function increases linearly with the amount being raised, as indicta
 \end{figure}
 As a result, the closing price, past \$257'000'000 investments, can be estimated to be approximately \$6.425.
 Hence, advisors and Protocol Labs Inc. itself were able to purchase for a price which is a factor of 8.57 lower than the late investor.
-
-\subsection{Questioning investors exclusion}
-
 
 \section{Is the design technically feasible?}
 \label{sec:tech-feasibility}
@@ -322,6 +322,7 @@ Filecoin assumes that this point that there is always at least one honest retrie
 \cite{filecoin}
 
 \section{IPFS}
+\label{sec:ipfs}
 As described in \cite{filecoin}, Filecoin serves as an incentivized seeding layer on top of the InterPlanetary File System (IPFS)\cite{ipfs-whitepaper}.
 The Filecoin project is therefore beneficial to IPFS as it intends to add more storage to the network. At the same time, is strongly depending on the technical capabilities and robustness of IPFS.
 This sections aims to highlight the capabilities of IPFS and explains the conceptual decisions made while building a peer-to-peer hypermedia protocol.
@@ -332,7 +333,7 @@ Lastly, we reason about possible approaches on how to integrate IFPS in Filecoin
 The Hypertext Transfer Protocol (HTTP) can be seen the global information protocol that standardized how people distribute and present information among each other.
 Publishing content with HTTP is nowadays almost free and led to great birth of innovation and has been driven innovation, economics and culture ever since.
 However, the way this valuable content is being distributed a significant flaw: HTTP allows content to \textit{erode} \cite{http-obsolete}.
-Covered by \textit{error code 404}\cite{http-rfc}, HTTP fails to maintain links between websites and allows valuable content to vanish completely.
+Covered by error code 404\cite{http-rfc}, HTTP fails to maintain links between websites and allows valuable content to vanish completely.
 The main reason for this problem to occur are centrally managed servers, free to shut down at any given time.
 While short-term availability of content tends to be sufficient, the ongoing erosion of data lacks to maintain long-term availability and results in a vast amount of broken links\cite{broken-links}.
 HTTP naturally empathized large organizations to centralize their services which constitutes in an ever increasing potential loss of data.
@@ -422,21 +423,66 @@ Regarding the distribution of the blocks among peers, Bitswap would react on \te
 Depending on whether the order evolved form the storage- or retrieval market, blocks would be sent to the node on either ask- or bid side.
 As a result, Bitswap serves as the API used by the decentralized markets (see Section \ref{subsec:markets}) and handles data exchange according to Filecoins incentive.
 
-\subsection{Potential weaknesses}
-%BitSwap uses a credit system in order to incentivise peers.
-%One potential weakness of this approach is the fact that logic is embedded within every node and therefore the implementation could be changed in order to outplay other peers.
-%In Filecoin, however, this weakness does not apply as the decentralised markets enforce incentive to the peers and hence a node not playing according to the rules will loose no matter what.
- 
 \section{Is the design economically feasible?}
 \label{sec:eco-feasibility}
 
-\section{Is this a pyramid scheme?}
+While analyzing the Filecoin ICO, people have also tried to measure the risk they take that comes along with the investment.
+Since there is no implementation yet, the investor has to realy on what is written in the white-paper and consider hypothetical pros and cons of the project and its team members.
+Therefore, the autor of \cite{ico-analysis} introduced a simple measure by adding (or subtracting) on a scale from 1-5 for every hypothetical pro (or con).
+Table \ref{tbl:eco-risk} summarizes this work and extends it with the knowledge accumulated while writing this paper.
+\begin{table}[H]
+\centering
+\caption{Estimation of economical feasibility}
+\label{tbl:eco-risk}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Aspect}                                                                                                                           & \textbf{Rating} \\ \hline
+Image left after ICO                                                                                                                      & -2             \\ \hline
+\begin{tabular}[c]{@{}l@{}}Overestimating teams abilities \\ and/or underestimating the cost\end{tabular}                                 & -2             \\ \hline
+\begin{tabular}[c]{@{}l@{}}Possible hurdles for users to use Filecoin \\ once ready\end{tabular}                                          & -3             \\ \hline
+\begin{tabular}[c]{@{}l@{}}Ability to lure miners and customers \\ away from Storj and Siacoin due to\\ technical excellence\end{tabular} & +4             \\ \hline
+\begin{tabular}[c]{@{}l@{}}Positioning for marketing opportunities \\ and business partnerships\end{tabular}                              & +3             \\ \hline
+\begin{tabular}[c]{@{}l@{}}Development team will respond to user \\ demands\end{tabular}                                                  & +1             \\ \hline
+\begin{tabular}[c]{@{}l@{}}Huge pool of essentially free resources \\ available from potential miners\end{tabular}                        & +2             \\ \hline
+\end{tabular}
+\end{table}
+Our estimation shows that the biggest advantage of the project is its technical excellence as well as the sophisticated marketing and its great partnerships.
+On the negative side we see two major weaknesses.
+First of all, the ICO left many investors and upcoming users look at the project with mixed feelings.
+Overestimating the complexity of the implementation is also expressed as an uncertainty and so is the hurdle of whether a user is going to use the project after all, or not.
 
-\section{Is it a bubble?}
+\subsection{Is it a Ponzi scheme?}
+Given that Filecoin raised a substantial amount of money with the ICO instrument, it is legitimate raise the question of whether Filecoin itself is a Ponzi scheme?
+
+By definition, a "Ponzi scheme" is a fraudulent investment operation that pays returns to its investors either from the investors’ own money or the money paid by subsequent investors, rather than from any actual profit earned by the company. \cite{ponzi}
+
+Indeed, given Section
+\ref{sec:ico-analysis} there are multiple factors which support this argument:
+\begin{itemize}
+\item Full control over investments by Protocol Labs (\ref{subsec:saft})
+\item Exponentially higher return for early investors (\ref{subsec:token-sale})
+\item Reward for vesting (\ref{sec:ico-analysis})
+\item Lack of implementation
+\end{itemize}
+
+On the other hand, there are numerous of logical reasons why an investor would \textit{trust} the people behind the Filecoin project:
+The fact that Protocol Labs has proven enormous technical capabilities by building IPFS and libp2p leads to believe that mastering the upcoming hurdles by building Filecoin will be handled in equal elegance.
+Further more, the investments raised are controlled an intermediary (see \ref{sec:ico-analysis}) which holds connections to the SEC. 
+
+The authors of this paper conclude that the proven technical capabilities of Protocol Labs should naturally be reason enough to believe that Filecoin is a legitimate project.
+However, the terms and the way the ICO was proceeded is far from ideal.
+Essentially, Protocol Labs allowed themselves to remain as the single entity that holds full control over the raised assets, without giving investors the possibility to be able to intervene effectively.
+Therefore, if good will shall fade away, the entire project could be turned into a Ponzi scheme.
+\textit{Note: this is a hypothetical scenario and we are not implying that this scenario will occur. Solely, we uncover possibilities.}
 
 \subsection{Back of the envelope calculation}
 
+After all, we would like to confront the reader with a speculation drawn from weakly supported statements and some hypothetical numbers.
+The speculation is meant to be taken with a pinch of salt, however, it shall also serve as an alert to the blindfolded bullish investor.
+
 In a recent interview \cite{podcast}, Juan Benet compares Filecoin with Airbnb \cite{airbnb} where people can rent away storage, instead of their homes.
+Therefore, the following calculation compares the valuation of both companies against each other by opposing their resources.
+Apartment space for Airbnb and disk space for Filecoin:
 As of today (September 2017), Airbnb values at approximately \$31 billion while holding around 3 million listings in total \cite{airbnb-valuation}.
 The average apartment in the United States was 934 square feet in 2016 \cite{housing-cnbc}.
 In a hypothetical scenario, Airbnb is therefore valued \$$11.06$ per square feet. 
@@ -446,6 +492,8 @@ Dividing the same factor as Airbnb applies for square feet to the storage price,
 This in fact means, the \$$257'000'000$ launched at the Filecoin ICO require $95'185'185'185$ Gigabyte ($95'185$ Petabyte) of storage to be offered by storage miners.
 Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of user data \cite{dropbox-userdata}, one could argue that Filecoin is overvalued.
 
+\section{Conclusion}
+\label{sec:conclusion}
 
 % Can use something like this to put references on a page
 % by themselves when using endfloat and the captionsoff option.
@@ -564,9 +612,11 @@ whitepaper,” https://filecoin.io/filecoin.pdf, accessed: September 20, 2017.
 
 \bibitem{dropbox-userdata} https://blogs.dropbox.com/tech/2016/03/magic-pocket-infrastructure/
 
-\bibitem{airbnb} https://airbnb.com
+\bibitem{airbnb} "Airbnb", https://airbnb.com, accessed: September 20, 2017.
 
-\bibitem{dropbox} https://dropbox.com
+\bibitem{dropbox} "Dropbox", https://dropbox.com, accessed: September 20, 2017.
+
+\bibitem{ico-analysis} "Filecoin ICO analysis", https://hacked.com/ico-analysis-filecoin/, accessed: September 20, 2017.
 
 \bibitem{consistent-hashing} Karger, David, et al. "Consistent hashing and random trees: Distributed caching protocols for relieving hot spots on the World Wide Web." Proceedings of the twenty-ninth annual ACM symposium on Theory of computing. ACM, 1997.
 
@@ -585,6 +635,10 @@ whitepaper,” https://filecoin.io/filecoin.pdf, accessed: September 20, 2017.
 \bibitem{zcash} Sasson, Eli Ben, et al. "Zerocash: Decentralized anonymous payments from bitcoin." Security and Privacy (SP), 2014 IEEE Symposium on. IEEE, 2014.
 
 \bibitem{filecoin-pft} "Power Fault Tolerance", https://filecoin.io/power-fault-tolerance.pdf, accessed: October 31, 2017.
+
+\bibitem{ponzi} "Ponzi Scheme", https://www.sec.gov/fast-answers/answersponzihtm.html, accessed: November 05, 2017.
+
+\bibitem{libp2p-github} "libp2p: Modular peer-to-peer networking stack", https://github.com/libp2p/specs, accessed: October 31, 2017.
 
 \end{thebibliography}
 
