@@ -58,12 +58,22 @@ j.a.pouwelse@tudelft.nl}
 \begin{abstract}
 %\boldmath
 
-%Filecoin's ICO, which began on August 10, 2017, raised \$257 million, driven by investors who 
+Centralized storage providers are dominating the storage market and host a major part of the data in the internet.
+In the recent blockchain era, the idea of decentralized storage was connected with the incentive that leads to a decentralized storage market.
+This paper analyzes Filecoin's ICO and it's technical capabilities, as described in the Whitepaper, in detail.
+Moreover, we dive into the details of the InterPlanetary File System (IPFS) project, a peer-to-peer hypermedia protocol which is being used as the underlying data store of Filecoin.
+Further we raise the question of whether Filecoin is an economically feasible project.
+That is by extending the work of a hypothetical risk analysis, considering the possibility of a Ponzi scheme and last but not least a sketch of a back-of-the-envelope calculation.
+The paper uncovers unattractiveness during the ICO which leafs investors without any control after their investment.
+Filecoin's Whitepaper introduces novel concepts and predecessor projects from the team members proof technical capabilities.
+We highlight that the integration of IPFS into Filecoin can be achieved by exploiting the capabilities provided by Bitswap.
+The feasibility in economical terms is hard to predict and the biggest hurdles is probably going to be the acceptance from the users.
+In addition, Filecoin shows certain characteristics of a Ponzi scheme but the trust built by the team members in the past leads to believe otherwise.
 
 \end{abstract}
 
 \begin{IEEEkeywords}
-filecoin, decentralized storage network, ico, proof-of-spacetime, crypto-currency.
+filecoin, crypto-currency, ipfs, libp2p, decentralized storage, ico, proof-of-spacetime, ponzi scheme.
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
@@ -78,18 +88,22 @@ However, the idea of a decentralized storage market is not a novel concept.
 Others\cite{tribler}\cite{mojo-nation} have tried in past too, but yet were not able to scale as much as Filecoin advertises to do, and eventually failed.
 More recent projects\cite{storj}\cite{sia} are currently working towards building a similar system with conceptual differences which will be uncovered briefly in this paper.
 
-This paper aims to analyze the ICO launch of Filecoin and reasons about the exceptionally large investment using heavily discussed topics in social media channels.
-Further, the feasibility in terms of technical as well as economical design is studied.
-We aim to uncover potential weaknesses but also highlight strengths of the proposed white-paper \cite{filecoin}.
-The novel \textit{proof-of-spacetime} consensus algorithm is being highlighted and compared with consensus proposals from projects such as StorJ and Sia.
-Eventually, we reason about whether the ICO launch might possibly be a ponzi scheme.
+This paper aims to analyze the Filecoin project primarily regarding its technical- and secondarily regarding its economical aspects.
+The most relevant numbers of the Filecoin ICO are being highlighted followed by a reasoning regarding the exceptionally large investment by using heavily discussed topics in social media channels.
+From the Simple Agreement for Future Tokens (SAFT) we highlight sections which state terms which might be unattractive to the unaware investor and benefits the founder team of Filecoin.
+Regarding Filecoins technical potential we mainly focus on what is proposed in the Whitepaper\cite{filecoin}.
+Thereby, we aim to uncover potential weaknesses but also highlight strengths.
+In addition, the novel \textit{proof-of-spacetime} consensus algorithm is being highlighted and compared with consensus proposals from projects such as StorJ and Sia.
+Moreover, we dive into the details of the InterPlanetary File System (IPFS) project, a peer-to-peer hypermedia protocol which is being used as the underlying data store of Filecoin.
+Not only is the technical foundation layed out, we also reason about how to possibly integrate IFPS as a storage adapter of Filecoin, using Bitswap\cite{bitswap}.
+The feasibility in terms of economical design is briefly discussed with a hyptothetical risk analysis, a reasoning about whether the ICO launch might possibly be a Ponzi scheme, as well as a back-of-the-envelope calculation.
 
 The structure of this paper is as follows: Section \ref{sec:documented-failure} lays out a history of decentralized storage projects with a similar ambition as Filecoin, but that have failed over time. 
 Section \ref{sec:recent-competitors} mentions recent competitor projects that make use of a blockchain.
 The following Section \ref{sec:ico-analysis} is an introduction to the Filecoin project by analyzing the ICO including the reasoning about the token sale and allocation thereof.
 Section \ref{sec:tech-feasibility} reasons whether the promises of the Filecoin project are technically feasible.
 By doing so, we analyze the InterPlanetary File System (IPFS)\cite{ipfs-whitepaper} in Section \ref{sec:ipfs} and highlight possible ways of its adoption in Filecoin.
-In Section \ref{sec:eco-feasibility} we question the economical feasibility in rudumentary manners and lastly conclude about the entire Filecoin project in Section \ref{sec:conclusion}.
+In Section \ref{sec:eco-feasibility} we question the economical feasibility in rudimentary manners and lastly conclude about the entire Filecoin project in Section \ref{sec:conclusion}.
 
 
 \section{15 years of documented failure}
@@ -494,6 +508,25 @@ Considering that Dropbox \cite{dropbox} holds currently around $500$ Petabyte of
 
 \section{Conclusion}
 \label{sec:conclusion}
+
+Projects such as Sia and StorJ have gotten their attention by allowing people able to provide and rent storage, without any central party involved.
+Filecoin's ICO began on August 10, 2017 and raised \$257 million, driven by investors who are sympathizing with the idea of a decentralized storage market, too.
+
+This paper analyzed Filecoin's ICO and highlighted some notable and unpleasant facts.
+For example, early investors, includung Protocol Labs as the founder team, had to pay up to 8.57 times less than a late investor.
+Next, the signed Simple Agreement for Future Token (SAFT), signed by every investor, holds terms which are much in favour of Protocol Labs.
+It states that the invested money, which is no longer in control of the investors, is only being refunded in cases which seem to be either fairly unlikely to occur or can easily be made up to satisfy their definition.
+
+Filecoins technical capabilities, as described in the Whitepaper, were studied in great detail.
+We dived into the details of the InterPlanetary File System (IPFS) project, a peer-to-peer hypermedia protocol which is being used as the storage adapter of Filecoin--while Filecoin serves as the incentivized layer.
+It appears that IPFS can seamlessly serve as a storage adapter for Filecoin by introducing a new strategy for Bitswap whereas the orders define which peers shall serve data.
+Further we raise the question of whether Filecoin is an economically feasible project.
+That is by extending the work of a hyptothetical risk analysis, considering the possibility of a Ponzi scheme and last but not least a sketch of a back-of-the-envelope calculation.
+
+The feasibility in economical terms is hard to predict and given a simple summary of risk related points, the biggest hurdles is probably going to be the acceptance from the users.
+In addition, Filecoin shows certain characteristics of a Ponzi scheme but the trust built by the team members in the past leads to believe otherwise.
+That is, Filecoin's Whitepaper introduces novel concepts and predecessor projects from the team members proof technical capabilities.
+Hence, it appears that Filecoin is going to be nothing but an outstanding project and time will tell if it will find adoption for the average cloud storage user.
 
 % Can use something like this to put references on a page
 % by themselves when using endfloat and the captionsoff option.
